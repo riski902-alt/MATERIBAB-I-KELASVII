@@ -3,315 +3,551 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InfOrmatika Fun - Kelas VII Bab I</title>
+    <title>Informatika Fun! - Dashboard Pembelajaran Interaktif</title>
     
-    <!-- Google Fonts: Poppins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Memuat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Custom CSS Configuration and Keyframes -->
+    <!-- Memuat Ikon Phosphor -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
     <style>
-        /* Base styles */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #e6f0fa; /* Soft light blue/very light denim */
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Animations */
-        @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-up {
-            opacity: 0;
-            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-            100% { transform: translateY(0) rotate(0deg); }
-        }
-
-        @keyframes float-reverse {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(20px) rotate(-5deg); }
-            100% { transform: translateY(0) rotate(0deg); }
-        }
-
-        .floating-element {
-            position: fixed;
-            z-index: -1;
-            opacity: 0.15;
-            color: #64748b;
-        }
-
-        /* Ripple Effect */
-        .btn-interactive {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .btn-interactive:active {
-            transform: scale(0.98);
-        }
-
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            transform: scale(0);
-            animation: ripple-anim 0.6s linear;
-            background-color: rgba(255, 255, 255, 0.6);
-            pointer-events: none;
-        }
-
-        .ripple-dark {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        @keyframes ripple-anim {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-
-        /* Glassmorphism Soft Borders */
-        .glass-border {
-            border: 1px solid rgba(255, 255, 255, 0.6);
+        :root {
+            --deep-navy: #14243A; 
+            --denim-blue: #426A91; 
+            --soft-denim: #6489AE;
+            --soft-green: #A8C9AE; 
+            --off-white: #F4F7FA; 
+            --pure-white: #FFFFFF;
+            --cyan-accent: #00bcd4; 
+            --cyan-light: #e0f7fa; 
+            --status-green: #1dd1a1;
+            --glow-cyan: rgba(0, 188, 212, 0.4); 
+            --glow-green: rgba(29, 209, 161, 0.4);
         }
         
-        /* Interactive Element Mini Animations on Hover */
-        .btn-interactive:hover .icon-left {
-            transform: translateY(-2px) scale(1.05);
-            transition: transform 0.3s ease;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--off-white); color: var(--deep-navy); }
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+        .menu-title, .user-name, .btn-action { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hidden { display: none !important; }
+
+        /* STYLE HALAMAN LOGIN */
+        #login-container {
+            background: linear-gradient(135deg, #F7FBFF 0%, #AFC9D8 50%, #B7D8C8 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            width: 100%;
         }
-        .btn-interactive:hover .icon-right {
-            transform: scale(1.1) rotate(3deg);
-            transition: transform 0.3s ease;
+
+        .login-card { 
+            background: #ffffff; 
+            width: 100%; 
+            max-width: 400px; 
+            border-radius: 20px; 
+            padding: 32px 28px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+            text-align: center; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+        }
+        .header-icon { 
+            width: 50px; 
+            height: 50px; 
+            background: #F0F7FF; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin: 0 auto 12px auto; 
+            color: #527F9B; 
+        }
+        .login-title { font-size: 24px; font-weight: 800; color: #173B57; margin-bottom: 6px; }
+        .login-desc { font-size: 13px; color: #314F68; margin-bottom: 20px; }
+        
+        .role-selector { display: flex; background: #F1F5F9; padding: 4px; border-radius: 10px; margin-bottom: 20px; }
+        .role-option { flex: 1; }
+        .role-option input[type="radio"] { display: none; }
+        .role-label { display: block; padding: 8px 12px; font-size: 13px; font-weight: 700; color: #314F68; cursor: pointer; border-radius: 8px; transition: 0.2s; }
+        .role-option input[type="radio"]:checked + .role-label { background: #ffffff; color: #173B57; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); }
+
+        .input-group { text-align: left; margin-bottom: 16px; }
+        .input-group label { display: block; font-size: 12px; font-weight: 700; color: #173B57; margin-bottom: 6px; }
+        .input-field { width: 100%; height: 44px; background: #ffffff; border: 1px solid #CBD5E1; border-radius: 10px; padding: 0 14px; font-size: 14px; color: #173B57; outline: none; }
+        .input-field:focus { border-color: #527F9B; }
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+
+        .btn-login-submit { width: 100%; height: 46px; background: #527F9B; color: #ffffff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+        .btn-login-submit:hover { background: #477FA0; }
+        
+        .status-message { font-size: 13px; font-weight: 600; padding: 10px; border-radius: 8px; display: none; margin-top: 12px; word-break: break-word; }
+        .status-error { background: #FEE2E2; color: #e63946; }
+        .status-success { background: #D1FAE5; color: #2a9d8f; }
+        
+        .card-footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #E2E8F0; }
+        .footer-title { font-size: 12px; font-weight: 800; color: #314F68; }
+        .footer-desc { font-size: 11px; color: #6F91AA; margin-top: 2px; }
+
+        /* STYLE DASHBOARD UTAMA */
+        #dashboard-container { display: flex; flex-direction: column; min-height: 100vh; width: 100%; }
+        .top-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 4%; background: var(--pure-white); border-bottom: 1px solid rgba(0, 0, 0, 0.05); flex-shrink: 0; z-index: 10; }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { font-size: 1.8rem; color: var(--denim-blue); transition: transform 0.3s ease; }
+        .logo-area:hover .logo-icon { transform: rotate(15deg) scale(1.1); }
+        .logo-area h1 { font-size: 1.1rem; font-weight: 700; color: var(--deep-navy); margin-bottom: 2px; }
+        .tagline { font-size: 0.7rem; color: var(--soft-denim); }
+        .user-profile { display: flex; align-items: center; gap: 12px; }
+        .user-info { display: flex; align-items: center; gap: 6px; }
+        .status-dot { width: 8px; height: 8px; background-color: var(--status-green); border-radius: 50%; box-shadow: 0 0 8px var(--status-green); animation: pulseDot 2s infinite ease-in-out; }
+        .btn-profile { background: none; border: none; color: var(--deep-navy); font-size: 1.4rem; cursor: pointer; transition: transform 0.2s ease; }
+        .btn-profile:hover { transform: scale(1.15) rotate(10deg); }
+
+        .page-title-section { background: var(--deep-navy); margin: 15px 4%; padding: 3vh 32px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 8px 20px rgba(20, 36, 58, 0.15); z-index: 8; flex-shrink: 0; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .page-title-section:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(20, 36, 58, 0.22); }
+        .page-title-content { display: flex; flex-direction: column; gap: 8px; }
+        .page-title-section .badge-jp { align-self: flex-start; background: rgba(255, 255, 255, 0.15); padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; color: var(--pure-white); font-weight: bold; backdrop-filter: blur(4px); }
+        .chapter-title { font-size: 1.6rem; color: var(--pure-white); line-height: 1.2; }
+        .meeting-title { font-size: 1rem; color: var(--soft-green); font-weight: 500; }
+        .hero-icon { font-size: 4.5rem; color: var(--soft-green); opacity: 0.9; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .page-title-section:hover .hero-icon { transform: scale(1.1) rotate(-8deg); }
+
+        .nav-container { background: var(--pure-white); padding: 10px 2%; border-bottom: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.02); flex-shrink: 0; z-index: 5; }
+        .menu-row { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 6px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 4px; }
+        .menu-row::-webkit-scrollbar { display: none; }
+
+        .tab-button { position: relative; background: var(--pure-white); color: var(--denim-blue); border: 2px solid var(--denim-blue); border-radius: 12px; padding: 8px 10px; display: flex; align-items: center; gap: 6px; flex: 1; min-width: fit-content; cursor: pointer; overflow: hidden; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; justify-content: center; user-select: none; }
+        .tab-button:hover { background: var(--off-white); transform: translateY(-3px); box-shadow: 0 6px 14px rgba(66, 106, 145, 0.18); }
+        .tab-button:active { transform: translateY(1px) scale(0.96); box-shadow: 0 2px 6px rgba(66, 106, 145, 0.12); }
+        .menu-icon { font-size: 1.12rem; transition: transform 0.3s ease, color 0.3s ease; }
+        .menu-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2px; }
+        .status-indicator { margin-left: 4px; font-size: 0.95rem; transition: transform 0.3s ease; }
+
+        .tab-button.active-tab { background: var(--deep-navy); color: var(--pure-white); border-color: var(--deep-navy); box-shadow: 0 4px 12px rgba(20, 36, 58, 0.25); }
+        .tab-button.active-tab .menu-icon { color: var(--soft-green); }
+        .tab-button.status-progress { background: var(--cyan-light); color: var(--deep-navy); border-color: var(--cyan-accent); box-shadow: 0 0 10px var(--glow-cyan); }
+        .tab-button.status-progress .menu-icon, .tab-button.status-progress .status-indicator { color: var(--cyan-accent); }
+        .tab-button.status-completed { background: var(--soft-green); color: var(--deep-navy); border-color: var(--soft-green); box-shadow: 0 4px 12px var(--glow-green); }
+        .tab-button.status-completed .menu-icon, .tab-button.status-completed .status-indicator { color: var(--deep-navy); }
+
+        .ripple { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.6); transform: scale(0); animation: rippleAnim 0.55s linear; pointer-events: none; }
+        .main-content-area { flex: 1; padding: 24px 4%; overflow-y: auto; background: var(--off-white); }
+        .tab-pane { display: none; max-width: 1400px; margin: 0 auto; }
+        .tab-pane.active { display: block; animation: contentSlideUp 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        .content-card { background: var(--pure-white); border-radius: 20px; padding: 28px; box-shadow: 0 6px 18px rgba(0,0,0,0.04); border: 1px solid rgba(0, 0, 0, 0.05); margin-bottom: 20px; transition: transform 0.3s ease; }
+        .btn-action { position: relative; background: var(--denim-blue); color: var(--pure-white); border: none; padding: 12px 26px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; cursor: pointer; overflow: hidden; transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; box-shadow: 0 4px 12px rgba(66, 106, 145, 0.25); user-select: none; }
+        .btn-action:hover { background: var(--deep-navy); transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 16px rgba(20, 36, 58, 0.3); }
+        .btn-action.success { background: var(--status-green); color: var(--deep-navy); pointer-events: none; box-shadow: 0 4px 15px var(--glow-green); }
+
+        @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+        @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+        @keyframes contentSlideUp { from { opacity: 0; transform: translateY(16px) scale(0.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        
+        @media (max-width: 768px) {
+            .page-title-section { padding: 24px; margin: 10px 4%; }
+            .hero-icon { display: none; }
+            .chapter-title { font-size: 1.3rem; }
         }
     </style>
 </head>
-<body class="min-h-screen text-slate-800 antialiased pb-20">
-
-    <!-- Background Floating Decorations -->
-    <i class="fas fa-database text-6xl floating-element top-[10%] left-[5%]" style="animation: float 8s ease-in-out infinite;"></i>
-    <i class="fas fa-cloud text-8xl floating-element top-[20%] right-[10%]" style="animation: float-reverse 10s ease-in-out infinite;"></i>
-    <i class="fas fa-network-wired text-5xl floating-element top-[40%] left-[15%]" style="animation: float 9s ease-in-out infinite 1s;"></i>
-    <i class="fas fa-code text-5xl floating-element bottom-[30%] right-[15%]" style="animation: float-reverse 7s ease-in-out infinite 0.5s;"></i>
-    <i class="fas fa-table text-7xl floating-element bottom-[10%] left-[10%]" style="animation: float 11s ease-in-out infinite 2s;"></i>
-    <i class="fas fa-chart-pie text-6xl floating-element top-[60%] right-[5%]" style="animation: float-reverse 8s ease-in-out infinite 1.5s;"></i>
+<body>
     
-    <div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10" style="background: radial-gradient(circle at top right, rgba(255,255,255,0.4) 0%, transparent 40%);"></div>
+    <!-- WADAH LOGIN -->
+    <div id="login-container">
+        <div class="login-card">
+            <div class="header-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+                </svg>
+            </div>
+    
+            <h1 class="login-title">LOGIN</h1>
+            <p class="login-desc">Silakan masuk untuk melanjutkan pembelajaran Informatika.</p>
+    
+            <div class="role-selector">
+                <div class="role-option">
+                    <input type="radio" id="roleSiswa" name="userRole" value="siswa" checked>
+                    <label for="roleSiswa" class="role-label">Siswa</label>
+                </div>
+                <div class="role-option">
+                    <input type="radio" id="roleGuru" name="userRole" value="guru">
+                    <label for="roleGuru" class="role-label">Guru</label>
+                </div>
+            </div>
+    
+            <form id="loginForm">
+                <div id="siswaSection" class="form-section active">
+                    <div class="input-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" class="input-field" placeholder="Masukkan nama lengkap">
+                    </div>
+                    <div class="input-group">
+                        <label for="nisn">NISN</label>
+                        <input type="text" id="nisn" class="input-field" placeholder="Masukkan NISN" inputmode="numeric">
+                    </div>
+                </div>
+    
+                <div id="guruSection" class="form-section">
+                    <div class="input-group">
+                        <label for="email">Email Guru</label>
+                        <input type="email" id="email" class="input-field" placeholder="Masukkan email guru">
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="input-field" placeholder="Masukkan password">
+                    </div>
+                </div>
+    
+                <button type="submit" id="btnLogin" class="btn-login-submit">LOGIN</button>
+                <div id="statusMessage" class="status-message"></div>
+            </form>
+    
+            <div class="card-footer">
+                <p class="footer-title">INFORMATIKA FUN</p>
+                <p class="footer-desc">By: Riski Amalia, S.Pd</p>
+            </div>
+        </div>
+    </div>
 
-    <!-- Main Container -->
-    <div class="max-w-[950px] w-[90%] md:w-[85%] lg:w-[75%] mx-auto pt-8">
-
-        <!-- Header / Titles -->
-        <header class="text-center mb-12">
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mb-4 tracking-tight animate-fade-up" style="animation-delay: 0.2s;">
-                <span class="block text-lg md:text-xl font-semibold text-blue-600 mb-2">KELAS VII </span>
-                BAB I - KONSEP DAN ANALISIS DATA TERSTRUKTUR
-            </h1>
-            <p class="text-base md:text-lg font-medium text-slate-600 animate-fade-up" style="animation-delay: 0.3s;">
-                </p>
+    <!-- WADAH DASHBOARD -->
+    <div id="dashboard-container" class="hidden">
+        <header class="top-header">
+            <div class="logo-area">
+                <i class="ph-fill ph-code-block logo-icon"></i>
+                <div>
+                    <h1>INFORMATIKA FUN!</h1>
+                    <p class="tagline">Pembelajaran Interaktif & Menyenangkan</p>
+                </div>
+            </div>
+            <div class="user-profile">
+                <div class="user-info">
+                    <span class="status-dot"></span>
+                    <span id="user-name" class="user-name">Siswa</span>
+                </div>
+                <button class="btn-profile" title="Profil Siswa"><i class="ph ph-user-circle"></i></button>
+            </div>
         </header>
 
-        <!-- Buttons Container -->
-        <div class="flex flex-col gap-[14px] md:gap-[18px]">
+        <section class="page-title-section">
+            <div class="page-title-content">
+                <div class="badge-jp"><i class="ph ph-clock"></i> JP: 120 MENIT</div>
+                <h2 class="chapter-title">BAB I: Konsep dan Analisis Data Terstruktur</h2>
+                <h3 class="meeting-title">Pertemuan 1: Data Terstruktur vs. Tidak Terstruktur</h3>
+            </div>
+            <i class="ph-duotone ph-database hero-icon"></i>
+        </section>
+
+        <nav class="nav-container">
+            <div id="menu-row" class="menu-row"></div>
+        </nav>
+
+        <main class="main-content-area">
+            <div id="content-container"></div>
+        </main>
+    </div>
+
+    <!-- SCRIPT FIREBASE & UTAMA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, collection, query, where, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB7bt1JBOXkh81nYk8sVkuFpSmuJ3kOj94",[cite: 7]
+            authDomain: "databasemateriinformatika.firebaseapp.com",[cite: 7]
+            projectId: "databasemateriinformatika",[cite: 7]
+            storageBucket: "databasemateriinformatika.firebasestorage.app",[cite: 7]
+            messagingSenderId: "961327810612",[cite: 7]
+            appId: "1:961327810612:web:48e952f20159a5b932e261",[cite: 7]
+            measurementId: "G-TDZQZ9L36B"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const learningMenus = [
+            { id: "atp", title: "ATP", icon: "ph-target", type: "read" },
+            { id: "asesmen-awal", title: "ASESMEN AWAL", icon: "ph-clipboard-text", type: "task" },
+            { id: "pertanyaan-esensial", title: "PERTANYAAN ESENSIAL", icon: "ph-question", type: "read" },
+            { id: "eksplorasi-konsep", title: "EKSPLORASI KONSEP", icon: "ph-folders", type: "read" },
+            { id: "for-learning", title: "FOR LEARNING", icon: "ph-lightbulb", type: "task" },
+            { id: "penerapan-konsep", title: "PENERAPAN KONSEP", icon: "ph-wrench", type: "task" },
+            { id: "as-learning", title: "AS LEARNING", icon: "ph-brain", type: "task" }
+        ];
+
+        let currentUser = localStorage.getItem('infoFun_Nama');
+        let currentNISN = localStorage.getItem('infoFun_NISN');
+        let storageKey = currentNISN ? `progress_Informatika_${currentNISN}` : '';
+        let userProgress = {};
+
+        const loginContainer = document.getElementById('login-container');
+        const dashboardContainer = document.getElementById('dashboard-container');
+        const userNameDisplay = document.getElementById('user-name');
+
+        function createRipple(event, element) {
+            const circle = document.createElement("span");
+            const diameter = Math.max(element.clientWidth, element.clientHeight);
+            const radius = diameter / 2;
+            const rect = element.getBoundingClientRect();
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - rect.left - radius}px`;
+            circle.style.top = `${event.clientY - rect.top - radius}px`;
+            circle.classList.add("ripple");
+            const ripple = element.getElementsByClassName("ripple")[0];
+            if (ripple) ripple.remove();
+            element.appendChild(circle);
+        }
+
+        function updateButtonVisuals(btn, menu, status) {
+            btn.classList.remove("status-progress", "status-completed");
+            let statusIcon = "ph-circle"; 
+            if (status === "progress") { 
+                btn.classList.add("status-progress"); 
+                statusIcon = "ph-spinner-gap ph-spin"; 
+            } else if (status === "completed") { 
+                btn.classList.add("status-completed"); 
+                statusIcon = "ph-check-circle"; 
+            }
+            btn.innerHTML = `<i class="ph-duotone ${menu.icon} menu-icon"></i> <span class="menu-title">${menu.title}</span> <i class="ph-bold ${statusIcon} status-indicator"></i>`;
+        }
+
+        function saveProgress(menuId, status) {
+            userProgress[menuId] = status;
+            localStorage.setItem(storageKey, JSON.stringify(userProgress));
+        }
+
+        function mulaiAplikasi() {
+            userProgress = JSON.parse(localStorage.getItem(storageKey)) || {};
+            const menuContainer = document.getElementById("menu-row");
+            const contentContainer = document.getElementById("content-container");
             
-            <!-- BUTTON 1 -->
-<a href="https://riski902-alt.github.io/KELASVII-BAB-1-PERTEMUAN1/" 
-   class="btn-interactive animate-fade-up w-full flex items-center justify-between p-4 md:p-5 rounded-2xl md:rounded-3xl shadow-md hover:shadow-lg bg-blue-900 hover:bg-blue-800 glass-border backdrop-blur-md transform hover:-translate-y-1 text-left no-underline block" 
-   style="animation-delay: 0.4s;">
-    
-    <div class="flex items-center gap-4 w-[85%]">
-        <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0 icon-left">
-            <i class="fas fa-database text-blue-200 text-xl md:text-2xl"></i>
-        </div>
-        <span class="text-sm sm:text-base md:text-lg uppercase font-bold text-justify text-white leading-snug w-full block">
-            PERTEMUAN 1: KONSEP DASAR DATA: DATA TERSTRUKTUR VS. TIDAK TERSTRUKTUR
-        </span>
-    </div>
-    
-    <div class="shrink-0 text-blue-300 icon-right flex items-center gap-1">
-        <i class="fas fa-table text-sm"></i>
-        <i class="fas fa-ellipsis-v text-xs"></i>
-    </div>
-</a>
+            if (!menuContainer || !contentContainer) return;
 
-            <!-- BUTTON 2 -->
-           <button class="btn-interactive animate-fade-up w-full flex items-center justify-between p-4 md:p-5 rounded-2xl md:rounded-3xl shadow-md hover:shadow-lg bg-cyan-900 hover:bg-cyan-800 glass-border backdrop-blur-md transform hover:-translate-y-1 text-left" style="animation-delay: 0.6s;">
-                <div class="flex items-center gap-4 w-[85%]">
-                    <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0 icon-left">
-                        <i class="fas fa-file-excel text-cyan-200 text-xl md:text-2xl"></i>
-                    </div>
-                    <span class="text-sm sm:text-base md:text-lg uppercase font-bold text-justify text-white leading-snug w-full block">
-                        PERTEMUAN 2: PENGIDENTIFIKASIAN DAN PEMODELAN DATA TERSTRUKTUR (TABEL, BARIS, KOLOM)
-                    </span>
-                </div>
-                <div class="shrink-0 text-emerald-300 icon-right grid grid-cols-2 gap-[2px]">
-                    <div class="w-2 h-2 bg-emerald-400 rounded-sm"></div>
-                    <div class="w-2 h-2 bg-emerald-300 rounded-sm"></div>
-                    <div class="w-2 h-2 bg-emerald-300 rounded-sm"></div>
-                    <div class="w-2 h-2 bg-emerald-400 rounded-sm"></div>
-                </div>
-            </button>
+            menuContainer.innerHTML = "";
+            contentContainer.innerHTML = "";
 
-            <!-- BUTTON 3 -->
-            <button class="btn-interactive animate-fade-up w-full flex items-center justify-between p-4 md:p-5 rounded-2xl md:rounded-3xl shadow-md hover:shadow-lg bg-cyan-900 hover:bg-cyan-800 glass-border backdrop-blur-md transform hover:-translate-y-1 text-left" style="animation-delay: 0.6s;">
-                <div class="flex items-center gap-4 w-[85%]">
-                    <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0 icon-left">
-                        <i class="fas fa-file-excel text-cyan-200 text-xl md:text-2xl"></i>
-                    </div>
-                    <span class="text-sm sm:text-base md:text-lg uppercase font-bold text-justify text-white leading-snug w-full block">
-                        PERTEMUAN 3: ANTARMUKA DAN ELEMEN DASAR LEMBAR KERJA PENGOLAH DATA (SPREADSHEET)
-                    </span>
-                </div>
-                <div class="shrink-0 text-cyan-300 font-mono text-xs md:text-sm font-bold icon-right flex flex-col items-center">
-                    <span>A1</span>
-                    <span class="text-[8px]">fx</span>
-                </div>
-            </button>
+            learningMenus.forEach((menu) => {
+                const currentStatus = userProgress[menu.id] || "unstarted";
 
-            <!-- BUTTON 4 -->
-            <button class="btn-interactive animate-fade-up w-full flex items-center justify-between p-4 md:p-5 rounded-2xl md:rounded-3xl shadow-md hover:shadow-lg bg-teal-900 hover:bg-teal-800 glass-border backdrop-blur-md transform hover:-translate-y-1 text-left" style="animation-delay: 0.7s;">
-                <div class="flex items-center gap-4 w-[85%]">
-                    <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0 icon-left">
-                        <i class="fas fa-filter text-teal-200 text-xl md:text-2xl"></i>
-                    </div>
-                    <span class="text-sm sm:text-base md:text-lg uppercase font-bold text-justify text-white leading-snug w-full block">
-                        PERTEMUAN 4: PENGOLAHAN DAN PENGORGANISASIAN DATA (SORTING, FILTERING, FORMULA DASAR)
-                    </span>
-                </div>
-                <div class="shrink-0 text-teal-300 icon-right flex flex-col">
-                    <i class="fas fa-sort-up"></i>
-                    <i class="fas fa-sort-down"></i>
-                </div>
-            </button>
+                const btn = document.createElement("button");
+                btn.id = `btn-${menu.id}`;
+                btn.className = "tab-button";
+                btn.dataset.target = menu.id;
+                updateButtonVisuals(btn, menu, currentStatus);
 
-            <!-- BUTTON 5 -->
-            <button class="btn-interactive animate-fade-up w-full flex items-center justify-between p-4 md:p-5 rounded-2xl md:rounded-3xl shadow-md hover:shadow-lg bg-indigo-900 hover:bg-indigo-800 glass-border backdrop-blur-md transform hover:-translate-y-1 text-left" style="animation-delay: 0.8s;">
-                <div class="flex items-center gap-4 w-[85%]">
-                    <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0 icon-left">
-                        <i class="fas fa-chart-line text-indigo-200 text-xl md:text-2xl"></i>
-                    </div>
-                    <span class="text-sm sm:text-base md:text-lg uppercase font-bold text-justify text-white leading-snug w-full block">
-                        PERTEMUAN 5: PRAKTIK ANALISIS DAN PENGOLAHAN DATA SEDERHANA
-                    </span>
-                </div>
-                <div class="shrink-0 text-indigo-300 icon-right relative">
-                    <i class="fas fa-search text-xs absolute -top-1 -right-1 z-10 text-indigo-400"></i>
-                    <i class="fas fa-chart-bar text-lg"></i>
-                </div>
-            </button>
+                btn.addEventListener("click", function(e) { createRipple(e, this); });
 
-            <!-- BUTTON 6 : GAMES -->
-            <button class="btn-interactive animate-fade-up w-full flex items-center justify-between p-4 md:p-5 rounded-2xl md:rounded-3xl shadow-lg hover:shadow-xl bg-gradient-to-r from-purple-900 to-indigo-900 glass-border backdrop-blur-md transform hover:-translate-y-1 text-left group" style="animation-delay: 0.9s;">
-                <div class="flex items-center gap-4 w-[85%]">
-                    <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0 icon-left shadow-inner">
-                        <i class="fas fa-gamepad text-purple-200 text-xl md:text-2xl animate-pulse"></i>
-                    </div>
-                    <span class="text-base sm:text-lg md:text-xl uppercase font-bold text-justify text-white tracking-wide w-full block">
-                        GAMES
-                    </span>
-                </div>
-                <div class="shrink-0 text-yellow-400 icon-right flex items-center gap-1">
-                    <i class="fas fa-star text-xs group-hover:animate-spin"></i>
-                    <i class="fas fa-star text-sm group-hover:animate-ping"></i>
-                </div>
-            </button>
-
-            <!-- BUTTON 7 : S BAB I -->
-            <button class="btn-interactive animate-fade-up w-full flex items-center justify-between p-4 md:p-5 rounded-2xl md:rounded-3xl shadow-lg hover:shadow-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 backdrop-blur-md transform hover:-translate-y-1 text-left" style="animation-delay: 1s;">
-                <div class="flex items-center gap-4 w-[85%]">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-400/20 flex items-center justify-center shrink-0 icon-left">
-                        <i class="fas fa-clipboard-check text-emerald-400 text-xl md:text-2xl"></i>
-                    </div>
-                    <span class="text-base sm:text-lg md:text-xl uppercase font-bold text-justify text-white tracking-wide w-full block">
-                        SUMATIF BAB I
-                    </span>
-                </div>
-                <div class="shrink-0 text-emerald-400 icon-right">
-                    <i class="fas fa-trophy text-lg drop-shadow-md"></i>
-                </div>
-            </button>
-
-        </div>
-    </div>
-
-    <!-- Javascript for Interactivity -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Function to handle the ripple effect on click
-            function createRipple(event) {
-                const button = event.currentTarget;
+                const pane = document.createElement("div");
+                pane.id = `pane-${menu.id}`;
+                pane.className = "tab-pane";
+                let actionButtonText = menu.type === "read" ? "Tandai Selesai Dibaca" : "Kirim Jawaban Tugas";
                 
-                // Remove existing ripples
-                const existingRipples = button.querySelectorAll('.ripple');
-                existingRipples.forEach(r => r.remove());
+                pane.innerHTML = `
+                    <div class="content-card">
+                        <i class="ph-duotone ${menu.icon}" style="font-size: 3rem; color: var(--denim-blue); margin-bottom: 12px; display: inline-block;"></i>
+                        <h2>${menu.title}</h2>
+                        <p style="margin-top: 12px; color: #555;">Ruang konten ini siap diisi dengan materi.</p>
+                        <br>
+                        <button id="action-${menu.id}" class="btn-action ${currentStatus === 'completed' ? 'success' : ''}">
+                            <i class="ph-bold ${currentStatus === 'completed' ? 'ph-check' : 'ph-paper-plane-right'}"></i> 
+                            <span class="btn-text">${currentStatus === 'completed' ? 'Selesai Dikerjakan' : actionButtonText}</span>
+                        </button>
+                    </div>
+                `;
 
-                const circle = document.createElement("span");
-                const diameter = Math.max(button.clientWidth, button.clientHeight);
-                const radius = diameter / 2;
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active-tab"));
+                    document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+                    btn.classList.add("active-tab");
+                    document.getElementById(`pane-${menu.id}`).classList.add("active");
 
-                // Get exact click coordinates relative to the button
-                const rect = button.getBoundingClientRect();
-                
-                circle.style.width = circle.style.height = `${diameter}px`;
-                circle.style.left = `${event.clientX - rect.left - radius}px`;
-                circle.style.top = `${event.clientY - rect.top - radius}px`;
-                
-                circle.classList.add("ripple");
-                
-                // Add specific logic if the button is dark colored to make ripple visible
-                if (button.classList.contains('bg-slate-800')) {
-                    circle.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                    if ((userProgress[menu.id] || "unstarted") === "unstarted") {
+                        saveProgress(menu.id, "progress");
+                        updateButtonVisuals(btn, menu, "progress");
+                    }
+                });
+
+                menuContainer.appendChild(btn);
+                contentContainer.appendChild(pane);
+
+                const actionBtn = document.getElementById(`action-${menu.id}`);
+                actionBtn.addEventListener("click", async function(e) {
+                    createRipple(e, this);
+                    
+                    const btnText = this.querySelector('.btn-text');
+                    const originalText = btnText.innerText;
+                    btnText.innerText = "Mengirim...";
+
+                    try {
+                        await addDoc(collection(db, "pengumpulan_tugas"), {
+                            namaSiswa: currentUser,
+                            nisnSiswa: currentNISN,
+                            menuDikerjakan: menu.title,
+                            waktuPengumpulan: serverTimestamp()
+                        });
+
+                        this.classList.add("success");
+                        this.innerHTML = `<i class="ph-bold ph-check"></i> <span class="btn-text">Tersimpan di Database!</span>`;
+                        
+                        saveProgress(menu.id, "completed");
+                        updateButtonVisuals(btn, menu, "completed");
+
+                    } catch (error) {
+                        console.error("Error menambah dokumen: ", error);
+                        alert("Gagal mengirim tugas: " + error.message);
+                        btnText.innerText = originalText; 
+                    }
+                });
+            });
+
+            const firstButton = document.getElementById(`btn-${learningMenus[0].id}`);
+            if (firstButton) firstButton.click();
+        }
+
+        if (currentUser && currentNISN) {
+            loginContainer.classList.add('hidden');
+            dashboardContainer.classList.remove('hidden');
+            userNameDisplay.textContent = currentUser;
+            mulaiAplikasi();
+        }
+
+        const roleInputs = document.querySelectorAll('input[name="userRole"]');
+        const siswaSection = document.getElementById('siswaSection');
+        const guruSection = document.getElementById('guruSection');
+        const statusDiv = document.getElementById('statusMessage');
+        const btnLogin = document.getElementById('btnLogin');
+
+        function showStatus(message, type) {
+            statusDiv.innerText = message;
+            statusDiv.style.display = 'block';
+            statusDiv.className = type === 'error' ? 'status-message status-error' : 'status-message status-success';
+        }
+
+        roleInputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                statusDiv.style.display = 'none';
+                if (e.target.value === 'siswa') {
+                    siswaSection.classList.add('active');
+                    guruSection.classList.remove('active');
+                } else {
+                    guruSection.classList.add('active');
+                    siswaSection.classList.remove('active');
+                }
+            });
+        });
+
+        btnLogin.addEventListener('click', async (event) => {
+            event.preventDefault();
+            const selectedRole = document.querySelector('input[name="userRole"]:checked').value;
+
+            if (selectedRole === 'siswa') {
+                const namaInput = document.getElementById('nama').value.trim();
+                const nisnInput = document.getElementById('nisn').value.trim();
+
+                if (namaInput === '' || nisnInput === '') {
+                    showStatus('Nama dan NISN wajib diisi.', 'error');
+                    return;
                 }
 
-                button.appendChild(circle);
+                showStatus('Memeriksa data siswa ke database...', 'success');
 
-                // Simulation of Navigation (Optional: to demonstrate what happens next)
-                setTimeout(() => {
-                    const buttonText = button.querySelector('span').innerText;
-                    console.log(`Navigasi ke: ${buttonText}`);
-                    // window.location.href = '#'; // This is where actual routing happens
-                }, 400); 
+                try {
+                    // Pencarian Serbaguna (NISN sebagai Teks & Angka, serta 'NISN' & 'nisn')
+                    let docs = [];
+                    const nisnStr = nisnInput;
+                    const nisnNum = Number(nisnInput);
+
+                    let q1 = query(collection(db, "siswa"), where("NISN", "==", nisnStr));
+                    let snap1 = await getDocs(q1);
+                    snap1.forEach(d => docs.push(d.data()));
+
+                    if (docs.length === 0 && !isNaN(nisnNum)) {
+                        let q2 = query(collection(db, "siswa"), where("NISN", "==", nisnNum));
+                        let snap2 = await getDocs(q2);
+                        snap2.forEach(d => docs.push(d.data()));
+                    }
+
+                    if (docs.length === 0) {
+                        let q3 = query(collection(db, "siswa"), where("nisn", "==", nisnStr));
+                        let snap3 = await getDocs(q3);
+                        snap3.forEach(d => docs.push(d.data()));
+                    }
+
+                    if (docs.length === 0 && !isNaN(nisnNum)) {
+                        let q4 = query(collection(db, "siswa"), where("nisn", "==", nisnNum));
+                        let snap4 = await getDocs(q4);
+                        snap4.forEach(d => docs.push(d.data()));
+                    }
+
+                    if (docs.length === 0) {
+                        showStatus('NISN tidak ditemukan di koleksi "siswa".', 'error');
+                        return;
+                    }
+
+                    let siswaCocok = false;
+                    docs.forEach((data) => {
+                        for (let kolom in data) {
+                            let namaKolomBersih = kolom.trim().toLowerCase().replace(/_/g, "");
+                            if (namaKolomBersih.includes("nama")) {
+                                let isiNamaDatabase = data[kolom];
+                                if (typeof isiNamaDatabase === "string" && isiNamaDatabase.trim().toLowerCase() === namaInput.toLowerCase()) {
+                                    siswaCocok = true;
+                                    break; 
+                                }
+                            }
+                        }
+                    });
+
+                    if (siswaCocok) {
+                        showStatus('Login berhasil! Membuka materi...', 'success');
+                        
+                        localStorage.setItem('infoFun_Nama', namaInput);
+                        localStorage.setItem('infoFun_NISN', nisnInput);
+                        currentUser = namaInput;
+                        currentNISN = nisnInput;
+                        storageKey = `progress_Informatika_${currentNISN}`;
+                        userNameDisplay.textContent = currentUser;
+
+                        setTimeout(() => {
+                            loginContainer.classList.add('hidden');
+                            dashboardContainer.classList.remove('hidden');
+                            mulaiAplikasi();
+                        }, 800);
+                        
+                    } else {
+                        showStatus('Nama tidak cocok dengan NISN yang terdaftar.', 'error');
+                    }
+
+                } catch (error) {
+                    console.error("Error Database:", error);
+                    showStatus('Kendala Firebase: ' + error.message, 'error');
+                }
+
+            } else {
+                const emailInput = document.getElementById('email').value.trim();
+                const passwordInput = document.getElementById('password').value;
+
+                if (emailInput === '' || passwordInput === '') {
+                    showStatus('Email dan password belum diisi.', 'error');
+                    return;
+                }
+                showStatus('Memeriksa akun Guru...', 'success');
+
+                signInWithEmailAndPassword(auth, emailInput, passwordInput)
+                .then(() => {
+                    showStatus('Login Guru berhasil! Mengalihkan...', 'success');
+                    setTimeout(() => {
+                        window.location.href = "https://riski902-alt.github.io/TOMBOL-PILIH-KELAS/"; 
+                    }, 1000);
+                })
+                .catch((error) => {
+                    showStatus('Login Guru gagal: ' + error.message, 'error');
+                });
             }
-
-            // Apply event listener to all interactive buttons
-            const buttons = document.querySelectorAll('.btn-interactive');
-            buttons.forEach(button => {
-                button.addEventListener('mousedown', createRipple);
-                // For touch devices
-                button.addEventListener('touchstart', (e) => {
-                    // pass the first touch point to the ripple creator
-                    const touch = e.touches[0];
-                    const fakeEvent = {
-                        currentTarget: button,
-                        clientX: touch.clientX,
-                        clientY: touch.clientY
-                    };
-                    createRipple(fakeEvent);
-                }, {passive: true});
-            });
         });
     </script>
 </body>
