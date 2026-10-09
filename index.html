@@ -3,551 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informatika Fun! - Dashboard Pembelajaran Interaktif</title>
+    <title>Bab I - Konsep dan Analisis Data Terstruktur</title>
     
-    <!-- Memuat Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    
-    <!-- Memuat Ikon Phosphor -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Tailwind CSS untuk Styling Cepat -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        :root {
-            --deep-navy: #14243A; 
-            --denim-blue: #426A91; 
-            --soft-denim: #6489AE;
-            --soft-green: #A8C9AE; 
-            --off-white: #F4F7FA; 
-            --pure-white: #FFFFFF;
-            --cyan-accent: #00bcd4; 
-            --cyan-light: #e0f7fa; 
-            --status-green: #1dd1a1;
-            --glow-cyan: rgba(0, 188, 212, 0.4); 
-            --glow-green: rgba(29, 209, 161, 0.4);
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--off-white); color: var(--deep-navy); }
-        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
-        .menu-title, .user-name, .btn-action { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .hidden { display: none !important; }
-
-        /* STYLE HALAMAN LOGIN */
-        #login-container {
-            background: linear-gradient(135deg, #F7FBFF 0%, #AFC9D8 50%, #B7D8C8 100%);
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Latar belakang cerah dipertahankan agar tombol gelap terlihat menonjol */
+            background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 50%, #f0f7f4 100%);
+            color: #1a2b4c;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            width: 100%;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        .login-card { 
-            background: #ffffff; 
-            width: 100%; 
-            max-width: 400px; 
-            border-radius: 20px; 
-            padding: 32px 28px; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
-            text-align: center; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
+        /* Teks Rata Kiri Kanan (Justify) */
+        .text-justify-custom {
+            text-align: justify;
+            text-justify: inter-word;
+            line-height: 1.55;
+            hyphens: auto;
         }
-        .header-icon { 
-            width: 50px; 
-            height: 50px; 
-            background: #F0F7FF; 
-            border-radius: 12px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            margin: 0 auto 12px auto; 
-            color: #527F9B; 
+
+        /* Desain Kartu / Tombol Gelap */
+        .card-btn {
+            position: relative;
+            overflow: hidden; 
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .login-title { font-size: 24px; font-weight: 800; color: #173B57; margin-bottom: 6px; }
-        .login-desc { font-size: 13px; color: #314F68; margin-bottom: 20px; }
+
+        /* Efek Hover Tombol */
+        .card-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Efek Click Tombol (Press) */
+        .card-btn:active {
+            transform: scale(0.98) translateY(0);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animasi Ikon Saat Hover */
+        .card-btn:hover .main-icon {
+            transform: scale(1.1) rotate(-3deg);
+        }
+        .main-icon {
+            transition: transform 0.3s ease;
+        }
+
+        /* Animasi Ripple Saat Diklik (Disesuaikan untuk tombol gelap) */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Animasi Masuk */
+        .animate-enter {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFade 0.6s ease forwards;
+        }
+        @keyframes slideUpFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
         
-        .role-selector { display: flex; background: #F1F5F9; padding: 4px; border-radius: 10px; margin-bottom: 20px; }
-        .role-option { flex: 1; }
-        .role-option input[type="radio"] { display: none; }
-        .role-label { display: block; padding: 8px 12px; font-size: 13px; font-weight: 700; color: #314F68; cursor: pointer; border-radius: 8px; transition: 0.2s; }
-        .role-option input[type="radio"]:checked + .role-label { background: #ffffff; color: #173B57; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); }
+        /* Delay berurutan untuk setiap tombol */
+        .delay-0 { animation-delay: 0s; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+        .delay-7 { animation-delay: 0.7s; }
 
-        .input-group { text-align: left; margin-bottom: 16px; }
-        .input-group label { display: block; font-size: 12px; font-weight: 700; color: #173B57; margin-bottom: 6px; }
-        .input-field { width: 100%; height: 44px; background: #ffffff; border: 1px solid #CBD5E1; border-radius: 10px; padding: 0 14px; font-size: 14px; color: #173B57; outline: none; }
-        .input-field:focus { border-color: #527F9B; }
-        .form-section { display: none; }
-        .form-section.active { display: block; }
+        /* Elemen Background Floating */
+        .bg-float-icon {
+            position: absolute;
+            color: rgba(148, 163, 184, 0.15); 
+            z-index: -1;
+            pointer-events: none;
+            animation: float-soft 12s infinite ease-in-out;
+        }
+        @keyframes float-soft {
+            0% { transform: translateY(0) scale(1) rotate(0deg); }
+            50% { transform: translateY(-15px) scale(1.05) rotate(3deg); }
+            100% { transform: translateY(0) scale(1) rotate(0deg); }
+        }
 
-        .btn-login-submit { width: 100%; height: 46px; background: #527F9B; color: #ffffff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 10px; transition: 0.2s; }
-        .btn-login-submit:hover { background: #477FA0; }
-        
-        .status-message { font-size: 13px; font-weight: 600; padding: 10px; border-radius: 8px; display: none; margin-top: 12px; word-break: break-word; }
-        .status-error { background: #FEE2E2; color: #e63946; }
-        .status-success { background: #D1FAE5; color: #2a9d8f; }
-        
-        .card-footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #E2E8F0; }
-        .footer-title { font-size: 12px; font-weight: 800; color: #314F68; }
-        .footer-desc { font-size: 11px; color: #6F91AA; margin-top: 2px; }
-
-        /* STYLE DASHBOARD UTAMA */
-        #dashboard-container { display: flex; flex-direction: column; min-height: 100vh; width: 100%; }
-        .top-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 4%; background: var(--pure-white); border-bottom: 1px solid rgba(0, 0, 0, 0.05); flex-shrink: 0; z-index: 10; }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-icon { font-size: 1.8rem; color: var(--denim-blue); transition: transform 0.3s ease; }
-        .logo-area:hover .logo-icon { transform: rotate(15deg) scale(1.1); }
-        .logo-area h1 { font-size: 1.1rem; font-weight: 700; color: var(--deep-navy); margin-bottom: 2px; }
-        .tagline { font-size: 0.7rem; color: var(--soft-denim); }
-        .user-profile { display: flex; align-items: center; gap: 12px; }
-        .user-info { display: flex; align-items: center; gap: 6px; }
-        .status-dot { width: 8px; height: 8px; background-color: var(--status-green); border-radius: 50%; box-shadow: 0 0 8px var(--status-green); animation: pulseDot 2s infinite ease-in-out; }
-        .btn-profile { background: none; border: none; color: var(--deep-navy); font-size: 1.4rem; cursor: pointer; transition: transform 0.2s ease; }
-        .btn-profile:hover { transform: scale(1.15) rotate(10deg); }
-
-        .page-title-section { background: var(--deep-navy); margin: 15px 4%; padding: 3vh 32px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 8px 20px rgba(20, 36, 58, 0.15); z-index: 8; flex-shrink: 0; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .page-title-section:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(20, 36, 58, 0.22); }
-        .page-title-content { display: flex; flex-direction: column; gap: 8px; }
-        .page-title-section .badge-jp { align-self: flex-start; background: rgba(255, 255, 255, 0.15); padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; color: var(--pure-white); font-weight: bold; backdrop-filter: blur(4px); }
-        .chapter-title { font-size: 1.6rem; color: var(--pure-white); line-height: 1.2; }
-        .meeting-title { font-size: 1rem; color: var(--soft-green); font-weight: 500; }
-        .hero-icon { font-size: 4.5rem; color: var(--soft-green); opacity: 0.9; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .page-title-section:hover .hero-icon { transform: scale(1.1) rotate(-8deg); }
-
-        .nav-container { background: var(--pure-white); padding: 10px 2%; border-bottom: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.02); flex-shrink: 0; z-index: 5; }
-        .menu-row { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 6px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 4px; }
-        .menu-row::-webkit-scrollbar { display: none; }
-
-        .tab-button { position: relative; background: var(--pure-white); color: var(--denim-blue); border: 2px solid var(--denim-blue); border-radius: 12px; padding: 8px 10px; display: flex; align-items: center; gap: 6px; flex: 1; min-width: fit-content; cursor: pointer; overflow: hidden; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; justify-content: center; user-select: none; }
-        .tab-button:hover { background: var(--off-white); transform: translateY(-3px); box-shadow: 0 6px 14px rgba(66, 106, 145, 0.18); }
-        .tab-button:active { transform: translateY(1px) scale(0.96); box-shadow: 0 2px 6px rgba(66, 106, 145, 0.12); }
-        .menu-icon { font-size: 1.12rem; transition: transform 0.3s ease, color 0.3s ease; }
-        .menu-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2px; }
-        .status-indicator { margin-left: 4px; font-size: 0.95rem; transition: transform 0.3s ease; }
-
-        .tab-button.active-tab { background: var(--deep-navy); color: var(--pure-white); border-color: var(--deep-navy); box-shadow: 0 4px 12px rgba(20, 36, 58, 0.25); }
-        .tab-button.active-tab .menu-icon { color: var(--soft-green); }
-        .tab-button.status-progress { background: var(--cyan-light); color: var(--deep-navy); border-color: var(--cyan-accent); box-shadow: 0 0 10px var(--glow-cyan); }
-        .tab-button.status-progress .menu-icon, .tab-button.status-progress .status-indicator { color: var(--cyan-accent); }
-        .tab-button.status-completed { background: var(--soft-green); color: var(--deep-navy); border-color: var(--soft-green); box-shadow: 0 4px 12px var(--glow-green); }
-        .tab-button.status-completed .menu-icon, .tab-button.status-completed .status-indicator { color: var(--deep-navy); }
-
-        .ripple { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.6); transform: scale(0); animation: rippleAnim 0.55s linear; pointer-events: none; }
-        .main-content-area { flex: 1; padding: 24px 4%; overflow-y: auto; background: var(--off-white); }
-        .tab-pane { display: none; max-width: 1400px; margin: 0 auto; }
-        .tab-pane.active { display: block; animation: contentSlideUp 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-        .content-card { background: var(--pure-white); border-radius: 20px; padding: 28px; box-shadow: 0 6px 18px rgba(0,0,0,0.04); border: 1px solid rgba(0, 0, 0, 0.05); margin-bottom: 20px; transition: transform 0.3s ease; }
-        .btn-action { position: relative; background: var(--denim-blue); color: var(--pure-white); border: none; padding: 12px 26px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; cursor: pointer; overflow: hidden; transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; box-shadow: 0 4px 12px rgba(66, 106, 145, 0.25); user-select: none; }
-        .btn-action:hover { background: var(--deep-navy); transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 16px rgba(20, 36, 58, 0.3); }
-        .btn-action.success { background: var(--status-green); color: var(--deep-navy); pointer-events: none; box-shadow: 0 4px 15px var(--glow-green); }
-
-        @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
-        @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
-        @keyframes contentSlideUp { from { opacity: 0; transform: translateY(16px) scale(0.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        
-        @media (max-width: 768px) {
-            .page-title-section { padding: 24px; margin: 10px 4%; }
-            .hero-icon { display: none; }
-            .chapter-title { font-size: 1.3rem; }
+        .card-btn:hover .visual-small {
+            transform: translateY(-2px);
+            opacity: 1;
         }
     </style>
 </head>
-<body>
-    
-    <!-- WADAH LOGIN -->
-    <div id="login-container">
-        <div class="login-card">
-            <div class="header-icon">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
-                </svg>
-            </div>
-    
-            <h1 class="login-title">LOGIN</h1>
-            <p class="login-desc">Silakan masuk untuk melanjutkan pembelajaran Informatika.</p>
-    
-            <div class="role-selector">
-                <div class="role-option">
-                    <input type="radio" id="roleSiswa" name="userRole" value="siswa" checked>
-                    <label for="roleSiswa" class="role-label">Siswa</label>
-                </div>
-                <div class="role-option">
-                    <input type="radio" id="roleGuru" name="userRole" value="guru">
-                    <label for="roleGuru" class="role-label">Guru</label>
-                </div>
-            </div>
-    
-            <form id="loginForm">
-                <div id="siswaSection" class="form-section active">
-                    <div class="input-group">
-                        <label for="nama">Nama Lengkap</label>
-                        <input type="text" id="nama" class="input-field" placeholder="Masukkan nama lengkap">
-                    </div>
-                    <div class="input-group">
-                        <label for="nisn">NISN</label>
-                        <input type="text" id="nisn" class="input-field" placeholder="Masukkan NISN" inputmode="numeric">
-                    </div>
-                </div>
-    
-                <div id="guruSection" class="form-section">
-                    <div class="input-group">
-                        <label for="email">Email Guru</label>
-                        <input type="email" id="email" class="input-field" placeholder="Masukkan email guru">
-                    </div>
-                    <div class="input-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" class="input-field" placeholder="Masukkan password">
-                    </div>
-                </div>
-    
-                <button type="submit" id="btnLogin" class="btn-login-submit">LOGIN</button>
-                <div id="statusMessage" class="status-message"></div>
-            </form>
-    
-            <div class="card-footer">
-                <p class="footer-title">INFORMATIKA FUN</p>
-                <p class="footer-desc">By: Riski Amalia, S.Pd</p>
-            </div>
-        </div>
-    </div>
+<body class="px-4 py-8 sm:p-10">
 
-    <!-- WADAH DASHBOARD -->
-    <div id="dashboard-container" class="hidden">
-        <header class="top-header">
-            <div class="logo-area">
-                <i class="ph-fill ph-code-block logo-icon"></i>
-                <div>
-                    <h1>INFORMATIKA FUN!</h1>
-                    <p class="tagline">Pembelajaran Interaktif & Menyenangkan</p>
-                </div>
-            </div>
-            <div class="user-profile">
-                <div class="user-info">
-                    <span class="status-dot"></span>
-                    <span id="user-name" class="user-name">Siswa</span>
-                </div>
-                <button class="btn-profile" title="Profil Siswa"><i class="ph ph-user-circle"></i></button>
-            </div>
+    <!-- Elemen Visual Background -->
+    <i class="fa-solid fa-magnifying-glass bg-float-icon text-5xl top-[10%] left-[5%] delay-0"></i>
+    <i class="fa-solid fa-code bg-float-icon text-4xl top-[30%] right-[10%] delay-2"></i>
+    <i class="fa-solid fa-globe bg-float-icon text-6xl bottom-[20%] left-[8%] delay-4"></i>
+    <i class="fa-solid fa-database bg-float-icon text-5xl top-[50%] left-[2%] delay-1"></i>
+    <i class="fa-solid fa-shield-halved bg-float-icon text-4xl bottom-[10%] right-[15%] delay-3"></i>
+    <div class="bg-float-icon text-3xl font-bold top-[15%] right-[20%] delay-5">{ }</div>
+    <i class="fa-solid fa-circle-check bg-float-icon text-4xl top-[70%] right-[5%] delay-6"></i>
+
+    <!-- Kontainer Utama -->
+    <main class="max-w-[900px] mx-auto flex flex-col items-center">
+
+        <!-- Header -->
+        <header class="text-center mb-10 mt-4 w-full animate-enter delay-0">
+            <h2 class="text-base sm:text-lg font-bold text-slate-500 mb-1 tracking-widest uppercase">
+                Kelas VII – Bab II
+            </h2>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-[#1a2b4c] mb-3 leading-tight drop-shadow-sm">
+                LITERASI INFORMASI DAN PENCARIAN DIGITAL
+            </h1>
+            </p>
         </header>
 
-        <section class="page-title-section">
-            <div class="page-title-content">
-                <div class="badge-jp"><i class="ph ph-clock"></i> JP: 120 MENIT</div>
-                <h2 class="chapter-title">BAB I: Konsep dan Analisis Data Terstruktur</h2>
-                <h3 class="meeting-title">Pertemuan 1: Data Terstruktur vs. Tidak Terstruktur</h3>
-            </div>
-            <i class="ph-duotone ph-database hero-icon"></i>
-        </section>
-
-        <nav class="nav-container">
-            <div id="menu-row" class="menu-row"></div>
-        </nav>
-
-        <main class="main-content-area">
-            <div id="content-container"></div>
-        </main>
-    </div>
-
-    <!-- SCRIPT FIREBASE & UTAMA -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { getFirestore, collection, query, where, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyB7bt1JBOXkh81nYk8sVkuFpSmuJ3kOj94",[cite: 7]
-            authDomain: "databasemateriinformatika.firebaseapp.com",[cite: 7]
-            projectId: "databasemateriinformatika",[cite: 7]
-            storageBucket: "databasemateriinformatika.firebasestorage.app",[cite: 7]
-            messagingSenderId: "961327810612",[cite: 7]
-            appId: "1:961327810612:web:48e952f20159a5b932e261",[cite: 7]
-            measurementId: "G-TDZQZ9L36B"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        const learningMenus = [
-            { id: "atp", title: "ATP", icon: "ph-target", type: "read" },
-            { id: "asesmen-awal", title: "ASESMEN AWAL", icon: "ph-clipboard-text", type: "task" },
-            { id: "pertanyaan-esensial", title: "PERTANYAAN ESENSIAL", icon: "ph-question", type: "read" },
-            { id: "eksplorasi-konsep", title: "EKSPLORASI KONSEP", icon: "ph-folders", type: "read" },
-            { id: "for-learning", title: "FOR LEARNING", icon: "ph-lightbulb", type: "task" },
-            { id: "penerapan-konsep", title: "PENERAPAN KONSEP", icon: "ph-wrench", type: "task" },
-            { id: "as-learning", title: "AS LEARNING", icon: "ph-brain", type: "task" }
-        ];
-
-        let currentUser = localStorage.getItem('infoFun_Nama');
-        let currentNISN = localStorage.getItem('infoFun_NISN');
-        let storageKey = currentNISN ? `progress_Informatika_${currentNISN}` : '';
-        let userProgress = {};
-
-        const loginContainer = document.getElementById('login-container');
-        const dashboardContainer = document.getElementById('dashboard-container');
-        const userNameDisplay = document.getElementById('user-name');
-
-        function createRipple(event, element) {
-            const circle = document.createElement("span");
-            const diameter = Math.max(element.clientWidth, element.clientHeight);
-            const radius = diameter / 2;
-            const rect = element.getBoundingClientRect();
-            circle.style.width = circle.style.height = `${diameter}px`;
-            circle.style.left = `${event.clientX - rect.left - radius}px`;
-            circle.style.top = `${event.clientY - rect.top - radius}px`;
-            circle.classList.add("ripple");
-            const ripple = element.getElementsByClassName("ripple")[0];
-            if (ripple) ripple.remove();
-            element.appendChild(circle);
-        }
-
-        function updateButtonVisuals(btn, menu, status) {
-            btn.classList.remove("status-progress", "status-completed");
-            let statusIcon = "ph-circle"; 
-            if (status === "progress") { 
-                btn.classList.add("status-progress"); 
-                statusIcon = "ph-spinner-gap ph-spin"; 
-            } else if (status === "completed") { 
-                btn.classList.add("status-completed"); 
-                statusIcon = "ph-check-circle"; 
-            }
-            btn.innerHTML = `<i class="ph-duotone ${menu.icon} menu-icon"></i> <span class="menu-title">${menu.title}</span> <i class="ph-bold ${statusIcon} status-indicator"></i>`;
-        }
-
-        function saveProgress(menuId, status) {
-            userProgress[menuId] = status;
-            localStorage.setItem(storageKey, JSON.stringify(userProgress));
-        }
-
-        function mulaiAplikasi() {
-            userProgress = JSON.parse(localStorage.getItem(storageKey)) || {};
-            const menuContainer = document.getElementById("menu-row");
-            const contentContainer = document.getElementById("content-container");
+        <!-- Kumpulan Tombol (Bento Vertikal) - Semua teks menjadi putih dengan background gelap -->
+        <div class="w-full flex flex-col gap-[16px]">
             
-            if (!menuContainer || !contentContainer) return;
-
-            menuContainer.innerHTML = "";
-            contentContainer.innerHTML = "";
-
-            learningMenus.forEach((menu) => {
-                const currentStatus = userProgress[menu.id] || "unstarted";
-
-                const btn = document.createElement("button");
-                btn.id = `btn-${menu.id}`;
-                btn.className = "tab-button";
-                btn.dataset.target = menu.id;
-                updateButtonVisuals(btn, menu, currentStatus);
-
-                btn.addEventListener("click", function(e) { createRipple(e, this); });
-
-                const pane = document.createElement("div");
-                pane.id = `pane-${menu.id}`;
-                pane.className = "tab-pane";
-                let actionButtonText = menu.type === "read" ? "Tandai Selesai Dibaca" : "Kirim Jawaban Tugas";
-                
-                pane.innerHTML = `
-                    <div class="content-card">
-                        <i class="ph-duotone ${menu.icon}" style="font-size: 3rem; color: var(--denim-blue); margin-bottom: 12px; display: inline-block;"></i>
-                        <h2>${menu.title}</h2>
-                        <p style="margin-top: 12px; color: #555;">Ruang konten ini siap diisi dengan materi.</p>
-                        <br>
-                        <button id="action-${menu.id}" class="btn-action ${currentStatus === 'completed' ? 'success' : ''}">
-                            <i class="ph-bold ${currentStatus === 'completed' ? 'ph-check' : 'ph-paper-plane-right'}"></i> 
-                            <span class="btn-text">${currentStatus === 'completed' ? 'Selesai Dikerjakan' : actionButtonText}</span>
-                        </button>
+            <!-- TOMBOL 1: Dark Blue -->
+            <a href="https://riski902-alt.github.io/KELASVII-BAB-1-PERTEMUAN1/" class="card-btn animate-enter delay-1 bg-gradient-to-r from-blue-600 to-blue-800 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
+                <div class="flex items-center gap-4 sm:gap-6 flex-grow">
+                    <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-sm">
+                        <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
-                `;
+                    <div class="flex-grow pr-2 sm:pr-4">
+                        <h3 class="text-[15px] sm:text-[17px] font-semibold text-white text-justify-custom">
+                            Pertemuan 1: Konsep Dasar Data: Data Terstruktur Vs Data Tidak Terstruktur
+                        </h3>
+                    </div>
+                </div>
+                <div class="hidden sm:flex flex-shrink-0 items-center gap-3 text-white/60 text-lg visual-small transition-all">
+                    <i class="fa-solid fa-server"></i>
+                    <i class="fa-solid fa-arrow-right-arrow-left text-sm"></i>
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+            </a>
 
-                btn.addEventListener("click", () => {
-                    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active-tab"));
-                    document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
-                    btn.classList.add("active-tab");
-                    document.getElementById(`pane-${menu.id}`).classList.add("active");
+            <!-- TOMBOL 2: Dark Emerald/Green -->
+            <a href="LINK_PERTEMUAN_2" class="card-btn animate-enter delay-2 bg-gradient-to-r from-emerald-600 to-emerald-800 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
+                <div class="flex items-center gap-4 sm:gap-6 flex-grow">
+                    <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-sm relative">
+                        <i class="fa-solid fa-search"></i>
+                        <i class="fa-solid fa-filter absolute text-sm bottom-3 right-2 bg-emerald-700 rounded-full px-1"></i>
+                    </div>
+                    <div class="flex-grow pr-2 sm:pr-4">
+                        <h3 class="text-[15px] sm:text-[17px] font-semibold text-white text-justify-custom">
+                            Pertemuan 2: Teknik Pencarian Efektif (Search Operators dan Advanced Search)
+                        </h3>
+                    </div>
+                </div>
+                <div class="hidden sm:flex flex-shrink-0 items-center gap-3 text-white/60 text-lg visual-small transition-all font-bold">
+                    <span>"+"</span>
+                    <span>"-"</span>
+                    <i class="fa-solid fa-arrow-pointer"></i>
+                </div>
+            </a>
 
-                    if ((userProgress[menu.id] || "unstarted") === "unstarted") {
-                        saveProgress(menu.id, "progress");
-                        updateButtonVisuals(btn, menu, "progress");
-                    }
-                });
+            <!-- TOMBOL 3: Dark Cyan -->
+            <a href="LINK_PERTEMUAN_3" class="card-btn animate-enter delay-3 bg-gradient-to-r from-cyan-600 to-cyan-800 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
+                <div class="flex items-center gap-4 sm:gap-6 flex-grow">
+                    <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-sm">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <i class="fa-solid fa-check absolute text-base bottom-3 right-3 text-cyan-200 font-extrabold drop-shadow"></i>
+                    </div>
+                    <div class="flex-grow pr-2 sm:pr-4">
+                        <h3 class="text-[15px] sm:text-[17px] font-semibold text-white text-justify-custom">
+                            Pertemuan 3: Indikator Kualitas Informasi Digital (Akurasi, Relevansi, dan Aktual)
+                        </h3>
+                    </div>
+                </div>
+                <div class="hidden sm:flex flex-shrink-0 items-center gap-3 text-white/60 text-lg visual-small transition-all">
+                    <i class="fa-regular fa-clock"></i>
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <i class="fa-solid fa-clipboard-check"></i>
+                </div>
+            </a>
 
-                menuContainer.appendChild(btn);
-                contentContainer.appendChild(pane);
+            <!-- TOMBOL 4: Dark Indigo -->
+            <a href="LINK_PERTEMUAN_4" class="card-btn animate-enter delay-4 bg-gradient-to-r from-indigo-600 to-indigo-800 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
+                <div class="flex items-center gap-4 sm:gap-6 flex-grow">
+                    <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-sm relative">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <i class="fa-solid fa-certificate text-xs absolute bottom-3 right-2 text-indigo-200"></i>
+                    </div>
+                    <div class="flex-grow pr-2 sm:pr-4">
+                        <h3 class="text-[15px] sm:text-[17px] font-semibold text-white text-justify-custom">
+                            Pertemuan 4: Evaluasi Kredibilitas Sumber, Reputasi Penulis, dan Verifikasi Domain Web
+                        </h3>
+                    </div>
+                </div>
+                <div class="hidden sm:flex flex-shrink-0 items-center gap-3 text-white/60 text-lg visual-small transition-all">
+                    <i class="fa-solid fa-globe"></i>
+                    <i class="fa-solid fa-lock"></i>
+                    <i class="fa-solid fa-user-check"></i>
+                </div>
+            </a>
 
-                const actionBtn = document.getElementById(`action-${menu.id}`);
-                actionBtn.addEventListener("click", async function(e) {
-                    createRipple(e, this);
+            <!-- TOMBOL 5: Dark Teal -->
+            <a href="LINK_PERTEMUAN_5" class="card-btn animate-enter delay-5 bg-gradient-to-r from-teal-600 to-teal-800 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
+                <div class="flex items-center gap-4 sm:gap-6 flex-grow">
+                    <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-sm relative">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    </div>
+                    <div class="flex-grow pr-2 sm:pr-4">
+                        <h3 class="text-[15px] sm:text-[17px] font-semibold text-white text-justify-custom">
+                            Pertemuan 5: Studi Kasus Pencarian dan Penilaian Kredibilitas Informasi
+                        </h3>
+                    </div>
+                </div>
+                <div class="hidden sm:flex flex-shrink-0 items-center gap-3 text-white/60 text-lg visual-small transition-all">
+                    <i class="fa-regular fa-file"></i>
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <i class="fa-solid fa-check-double"></i>
+                </div>
+            </a>
+
+            <!-- TOMBOL 6: GAMES (Dark Sky Blue) -->
+            <a href="LINK_GAMES" class="card-btn animate-enter delay-6 bg-gradient-to-r from-sky-600 to-blue-700 border-2 border-dashed border-sky-400 hover:border-sky-300 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
+                <div class="flex items-center gap-4 sm:gap-6 flex-grow">
+                    <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-sm relative">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <i class="fa-solid fa-magnifying-glass absolute text-sm -top-1 -right-1 text-emerald-300 drop-shadow-sm"></i>
+                    </div>
+                    <div class="flex-grow pr-2 sm:pr-4">
+                        <h3 class="text-[15px] sm:text-[17px] font-bold text-white text-justify-custom tracking-wide">
+                            GAMES
+                        </h3>
+                    </div>
+                </div>
+                <div class="hidden sm:flex flex-shrink-0 items-center gap-3 text-white/60 text-lg visual-small transition-all">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-question-circle"></i>
+                    <i class="fa-solid fa-dice-d20"></i>
+                </div>
+            </a>
+
+            <!-- TOMBOL 7: ULANGAN BAB III (Dark Navy) -->
+            <a href="LINK_ULANGAN" class="card-btn animate-enter delay-7 bg-gradient-to-r from-[#1a2b4c] to-[#243b67] p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group shadow-md border-none">
+                <div class="flex items-center gap-4 sm:gap-6 flex-grow">
+                    <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/10 text-emerald-400 flex items-center justify-center text-2xl sm:text-3xl shadow-inner relative">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                        <i class="fa-solid fa-check absolute bottom-3 right-3 text-sm text-white"></i>
+                    </div>
+                    <div class="flex-grow pr-2 sm:pr-4">
+                        <h3 class="text-[15px] sm:text-[17px] font-bold text-white text-justify-custom tracking-wider">
+                            ULANGAN BAB III
+                        </h3>
+                    </div>
+                </div>
+                <div class="hidden sm:flex flex-shrink-0 items-center gap-3 text-white/40 text-lg visual-small transition-all group-hover:text-emerald-300/80">
+                    <i class="fa-solid fa-pencil"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Script JavaScript Murni untuk Efek Ripple -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.card-btn');
+
+            buttons.forEach(button => {
+                button.addEventListener('mousedown', function (e) {
+                    if (e.button !== 0) return;
+
+                    const rect = button.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
                     
-                    const btnText = this.querySelector('.btn-text');
-                    const originalText = btnText.innerText;
-                    btnText.innerText = "Mengirim...";
+                    const size = Math.max(button.clientWidth, button.clientHeight) * 1.5;
+                    ripple.style.width = ripple.style.height = `${size}px`;
+                    ripple.style.left = `${x - size / 2}px`;
+                    ripple.style.top = `${y - size / 2}px`;
 
-                    try {
-                        await addDoc(collection(db, "pengumpulan_tugas"), {
-                            namaSiswa: currentUser,
-                            nisnSiswa: currentNISN,
-                            menuDikerjakan: menu.title,
-                            waktuPengumpulan: serverTimestamp()
-                        });
+                    button.appendChild(ripple);
 
-                        this.classList.add("success");
-                        this.innerHTML = `<i class="ph-bold ph-check"></i> <span class="btn-text">Tersimpan di Database!</span>`;
-                        
-                        saveProgress(menu.id, "completed");
-                        updateButtonVisuals(btn, menu, "completed");
-
-                    } catch (error) {
-                        console.error("Error menambah dokumen: ", error);
-                        alert("Gagal mengirim tugas: " + error.message);
-                        btnText.innerText = originalText; 
-                    }
-                });
-            });
-
-            const firstButton = document.getElementById(`btn-${learningMenus[0].id}`);
-            if (firstButton) firstButton.click();
-        }
-
-        if (currentUser && currentNISN) {
-            loginContainer.classList.add('hidden');
-            dashboardContainer.classList.remove('hidden');
-            userNameDisplay.textContent = currentUser;
-            mulaiAplikasi();
-        }
-
-        const roleInputs = document.querySelectorAll('input[name="userRole"]');
-        const siswaSection = document.getElementById('siswaSection');
-        const guruSection = document.getElementById('guruSection');
-        const statusDiv = document.getElementById('statusMessage');
-        const btnLogin = document.getElementById('btnLogin');
-
-        function showStatus(message, type) {
-            statusDiv.innerText = message;
-            statusDiv.style.display = 'block';
-            statusDiv.className = type === 'error' ? 'status-message status-error' : 'status-message status-success';
-        }
-
-        roleInputs.forEach(input => {
-            input.addEventListener('change', (e) => {
-                statusDiv.style.display = 'none';
-                if (e.target.value === 'siswa') {
-                    siswaSection.classList.add('active');
-                    guruSection.classList.remove('active');
-                } else {
-                    guruSection.classList.add('active');
-                    siswaSection.classList.remove('active');
-                }
-            });
-        });
-
-        btnLogin.addEventListener('click', async (event) => {
-            event.preventDefault();
-            const selectedRole = document.querySelector('input[name="userRole"]:checked').value;
-
-            if (selectedRole === 'siswa') {
-                const namaInput = document.getElementById('nama').value.trim();
-                const nisnInput = document.getElementById('nisn').value.trim();
-
-                if (namaInput === '' || nisnInput === '') {
-                    showStatus('Nama dan NISN wajib diisi.', 'error');
-                    return;
-                }
-
-                showStatus('Memeriksa data siswa ke database...', 'success');
-
-                try {
-                    // Pencarian Serbaguna (NISN sebagai Teks & Angka, serta 'NISN' & 'nisn')
-                    let docs = [];
-                    const nisnStr = nisnInput;
-                    const nisnNum = Number(nisnInput);
-
-                    let q1 = query(collection(db, "siswa"), where("NISN", "==", nisnStr));
-                    let snap1 = await getDocs(q1);
-                    snap1.forEach(d => docs.push(d.data()));
-
-                    if (docs.length === 0 && !isNaN(nisnNum)) {
-                        let q2 = query(collection(db, "siswa"), where("NISN", "==", nisnNum));
-                        let snap2 = await getDocs(q2);
-                        snap2.forEach(d => docs.push(d.data()));
-                    }
-
-                    if (docs.length === 0) {
-                        let q3 = query(collection(db, "siswa"), where("nisn", "==", nisnStr));
-                        let snap3 = await getDocs(q3);
-                        snap3.forEach(d => docs.push(d.data()));
-                    }
-
-                    if (docs.length === 0 && !isNaN(nisnNum)) {
-                        let q4 = query(collection(db, "siswa"), where("nisn", "==", nisnNum));
-                        let snap4 = await getDocs(q4);
-                        snap4.forEach(d => docs.push(d.data()));
-                    }
-
-                    if (docs.length === 0) {
-                        showStatus('NISN tidak ditemukan di koleksi "siswa".', 'error');
-                        return;
-                    }
-
-                    let siswaCocok = false;
-                    docs.forEach((data) => {
-                        for (let kolom in data) {
-                            let namaKolomBersih = kolom.trim().toLowerCase().replace(/_/g, "");
-                            if (namaKolomBersih.includes("nama")) {
-                                let isiNamaDatabase = data[kolom];
-                                if (typeof isiNamaDatabase === "string" && isiNamaDatabase.trim().toLowerCase() === namaInput.toLowerCase()) {
-                                    siswaCocok = true;
-                                    break; 
-                                }
-                            }
-                        }
-                    });
-
-                    if (siswaCocok) {
-                        showStatus('Login berhasil! Membuka materi...', 'success');
-                        
-                        localStorage.setItem('infoFun_Nama', namaInput);
-                        localStorage.setItem('infoFun_NISN', nisnInput);
-                        currentUser = namaInput;
-                        currentNISN = nisnInput;
-                        storageKey = `progress_Informatika_${currentNISN}`;
-                        userNameDisplay.textContent = currentUser;
-
-                        setTimeout(() => {
-                            loginContainer.classList.add('hidden');
-                            dashboardContainer.classList.remove('hidden');
-                            mulaiAplikasi();
-                        }, 800);
-                        
-                    } else {
-                        showStatus('Nama tidak cocok dengan NISN yang terdaftar.', 'error');
-                    }
-
-                } catch (error) {
-                    console.error("Error Database:", error);
-                    showStatus('Kendala Firebase: ' + error.message, 'error');
-                }
-
-            } else {
-                const emailInput = document.getElementById('email').value.trim();
-                const passwordInput = document.getElementById('password').value;
-
-                if (emailInput === '' || passwordInput === '') {
-                    showStatus('Email dan password belum diisi.', 'error');
-                    return;
-                }
-                showStatus('Memeriksa akun Guru...', 'success');
-
-                signInWithEmailAndPassword(auth, emailInput, passwordInput)
-                .then(() => {
-                    showStatus('Login Guru berhasil! Mengalihkan...', 'success');
                     setTimeout(() => {
-                        window.location.href = "https://riski902-alt.github.io/TOMBOL-PILIH-KELAS/"; 
-                    }, 1000);
-                })
-                .catch((error) => {
-                    showStatus('Login Guru gagal: ' + error.message, 'error');
+                        ripple.remove();
+                    }, 600);
                 });
-            }
+            });
         });
     </script>
 </body>
