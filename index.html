@@ -15,9 +15,9 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            /* Latar belakang cerah dipertahankan agar tombol gelap terlihat menonjol */
-            background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 50%, #f0f7f4 100%);
-            color: #1a2b4c;
+            /* Warna Latar Belakang Biru Denim dari index 2 */
+            background-color: #4A7298;
+            color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
@@ -31,21 +31,24 @@
             hyphens: auto;
         }
 
-        /* Desain Kartu / Tombol Gelap */
+        /* Desain Kartu / Tombol Gelap dari index 2 */
         .card-btn {
             position: relative;
             overflow: hidden; 
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            /* Background dan border solid navy dari index 2 */
+            background-color: #1E3A5F; 
+            border: 3px solid #88D4AB; 
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* Efek Hover Tombol */
+        /* Efek Hover Tombol dari index 2 */
         .card-btn:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
+            border-color: #A3E4C2;
+            background-color: #23436b;
         }
 
         /* Efek Click Tombol (Press) */
@@ -105,7 +108,7 @@
         /* Elemen Background Floating */
         .bg-float-icon {
             position: absolute;
-            color: rgba(148, 163, 184, 0.15); 
+            color: rgba(255, 255, 255, 0.1); 
             z-index: -1;
             pointer-events: none;
             animation: float-soft 12s infinite ease-in-out;
@@ -122,7 +125,7 @@
         }
     </style>
 </head>
-<body class="px-4 py-8 sm:p-10">
+<body class="px-4 py-8 sm:p-10 flex flex-col items-center">
 
     <!-- Elemen Visual Background -->
     <i class="fa-solid fa-magnifying-glass bg-float-icon text-5xl top-[10%] left-[5%] delay-0"></i>
@@ -134,24 +137,26 @@
     <i class="fa-solid fa-circle-check bg-float-icon text-4xl top-[70%] right-[5%] delay-6"></i>
 
     <!-- Kontainer Utama -->
-    <main class="max-w-[900px] mx-auto flex flex-col items-center">
+    <main class="max-w-[900px] w-full mx-auto flex flex-col items-center flex-grow">
 
         <!-- Header -->
         <header class="text-center mb-10 mt-4 w-full animate-enter delay-0">
-            <h2 class="text-base sm:text-lg font-bold text-slate-500 mb-1 tracking-widest uppercase">
+            <!-- Logo yang Ditambahkan -->
+            <img src="https://cdn.phototourl.com/member/2026-10-20-301bf8f0-f5cd-4de0-a3fd-b9b3a2d0e3e0.png" alt="Logo Informatika" class="w-24 sm:w-32 mx-auto mb-5 drop-shadow-md rounded-xl">
+            
+            <h2 class="text-base sm:text-lg font-bold text-gray-200 mb-1 tracking-widest uppercase">
                 Kelas VII – Bab I
             </h2>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-[#1a2b4c] mb-3 leading-tight drop-shadow-sm">
-                KONSEP DAN ANAISIS DATA TERSTRUKTUR
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-3 leading-tight drop-shadow-md">
+                KONSEP DAN ANALISIS DATA TERSTRUKTUR
             </h1>
-            </p>
         </header>
 
-        <!-- Kumpulan Tombol (Bento Vertikal) - Semua teks menjadi putih dengan background gelap -->
+        <!-- Kumpulan Tombol (Bento Vertikal) -->
         <div class="w-full flex flex-col gap-[16px]">
             
-            <!-- TOMBOL 1: Dark Blue -->
-            <a href="https://riski902-alt.github.io/DASHBOARD-MATERI/index.html?id=kelas7-sem1-bab1-pertemuan1" class="card-btn animate-enter delay-1 bg-gradient-to-r from-blue-600 to-blue-800 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
+            <!-- TOMBOL 1 -->
+            <a href="https://riski902-alt.github.io/DASHBOARD-MATERI/index.html?id=kelas7-sem1-bab1-pertemuan1" class="card-btn animate-enter delay-1 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
                 <div class="flex items-center gap-4 sm:gap-6 flex-grow">
                     <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-sm">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -169,8 +174,8 @@
                 </div>
             </a>
 
-            <!-- TOMBOL 2: Dark Emerald/Green -->
-            <a href="https://riski902-alt.github.io/DASHBOARD-MATERI/index.html?id=kelas7-sem1-bab1-pertemuan2" class="card-btn animate-enter delay-2 bg-gradient-to-r from-emerald-600 to-emerald-800 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
+            <!-- TOMBOL 2 -->
+            <a href="https://riski902-alt.github.io/DASHBOARD-MATERI/index.html?id=kelas7-sem1-bab1-pertemuan2" class="card-btn animate-enter delay-2 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
                 <div class="flex items-center gap-4 sm:gap-6 flex-grow">
                     <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-sm relative">
                         <i class="fa-solid fa-search"></i>
@@ -178,7 +183,7 @@
                     </div>
                     <div class="flex-grow pr-2 sm:pr-4">
                         <h3 class="text-[15px] sm:text-[17px] font-semibold text-white text-justify-custom">
-                            Pertemuan 2: Pengidentisikasian dan Pemodelan Data Terstruktur di Kehiidupan Sehari-hari
+                            Pertemuan 2: Pengidentifikasian dan Pemodelan Data Terstruktur di Kehidupan Sehari-hari
                         </h3>
                     </div>
                 </div>
@@ -189,8 +194,8 @@
                 </div>
             </a>
 
-            <!-- TOMBOL 3: Dark Cyan -->
-            <a href="https://riski902-alt.github.io/DASHBOARD-MATERI/index.html?id=kelas7-sem1-bab1-pertemuan3" class="card-btn animate-enter delay-3 bg-gradient-to-r from-cyan-600 to-cyan-800 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
+            <!-- TOMBOL 3 -->
+            <a href="https://riski902-alt.github.io/DASHBOARD-MATERI/index.html?id=kelas7-sem1-bab1-pertemuan3" class="card-btn animate-enter delay-3 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
                 <div class="flex items-center gap-4 sm:gap-6 flex-grow">
                     <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-sm">
                         <i class="fa-regular fa-file-lines"></i>
@@ -209,8 +214,8 @@
                 </div>
             </a>
 
-            <!-- TOMBOL 4: Dark Indigo -->
-            <a href="https://riski902-alt.github.io/DASHBOARD-MATERI/index.html?id=kelas7-sem1-bab1-pertemuan4" class="card-btn animate-enter delay-4 bg-gradient-to-r from-indigo-600 to-indigo-800 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
+            <!-- TOMBOL 4 -->
+            <a href="https://riski902-alt.github.io/DASHBOARD-MATERI/index.html?id=kelas7-sem1-bab1-pertemuan4" class="card-btn animate-enter delay-4 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
                 <div class="flex items-center gap-4 sm:gap-6 flex-grow">
                     <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-sm relative">
                         <i class="fa-solid fa-shield-halved"></i>
@@ -229,8 +234,8 @@
                 </div>
             </a>
 
-            <!-- TOMBOL 5: Dark Teal -->
-            <a href="https://riski902-alt.github.io/DASHBOARD-MATERI/index.html?id=kelas7-sem1-bab1-pertemuan5" class="card-btn animate-enter delay-5 bg-gradient-to-r from-teal-600 to-teal-800 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
+            <!-- TOMBOL 5 -->
+            <a href="https://riski902-alt.github.io/DASHBOARD-MATERI/index.html?id=kelas7-sem1-bab1-pertemuan5" class="card-btn animate-enter delay-5 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
                 <div class="flex items-center gap-4 sm:gap-6 flex-grow">
                     <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-sm relative">
                         <i class="fa-solid fa-magnifying-glass-chart"></i>
@@ -248,8 +253,8 @@
                 </div>
             </a>
 
-            <!-- TOMBOL 6: GAMES (Dark Sky Blue) -->
-            <a href="LINK_GAMES" class="card-btn animate-enter delay-6 bg-gradient-to-r from-sky-600 to-blue-700 border-2 border-dashed border-sky-400 hover:border-sky-300 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
+            <!-- TOMBOL 6: GAMES -->
+            <a href="LINK_GAMES" class="card-btn animate-enter delay-6 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
                 <div class="flex items-center gap-4 sm:gap-6 flex-grow">
                     <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 text-white flex items-center justify-center text-2xl sm:text-3xl shadow-sm relative">
                         <i class="fa-solid fa-gamepad"></i>
@@ -268,8 +273,8 @@
                 </div>
             </a>
 
-            <!-- TOMBOL 7: ULANGAN BAB II (Dark Navy) -->
-            <a href="LINK_ULANGAN" class="card-btn animate-enter delay-7 bg-gradient-to-r from-[#1a2b4c] to-[#243b67] p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group shadow-md border-none">
+            <!-- TOMBOL 7: ULANGAN BAB I -->
+            <a href="LINK_ULANGAN" class="card-btn animate-enter delay-7 p-5 sm:p-6 w-full flex items-center justify-between cursor-pointer group">
                 <div class="flex items-center gap-4 sm:gap-6 flex-grow">
                     <div class="main-icon flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/10 text-emerald-400 flex items-center justify-center text-2xl sm:text-3xl shadow-inner relative">
                         <i class="fa-solid fa-clipboard-list"></i>
@@ -290,6 +295,13 @@
 
         </div>
     </main>
+
+    <!-- Footer yang Ditambahkan -->
+    <footer class="w-full text-center py-6 mt-4 z-10 opacity-90 animate-enter delay-7">
+        <p class="text-[10px] sm:text-xs font-bold text-gray-300 tracking-wider">
+            INFORMATIKA FUN @ By: Riski Amalia, S.Pd
+        </p>
+    </footer>
 
     <!-- Script JavaScript Murni untuk Efek Ripple -->
     <script>
